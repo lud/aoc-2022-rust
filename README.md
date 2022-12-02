@@ -1,6 +1,7 @@
+<!-- markdownlint-disable -->
 <img src="./.assets/christmas_ferris.png" width="164">
 
-# 🎄 Advent of Code {year}
+# 🎄 Advent of Code 2022
 
 Solutions for [Advent of Code](https://adventofcode.com/) in [Rust](https://www.rust-lang.org/).
 
@@ -52,7 +53,7 @@ When editing a solution, `rust-analyzer` will display buttons for running / debu
 
 ### Download input for a day
 
-> **Note**  
+> **Note**
 > This command requires [installing the aoc-cli crate](#download-puzzle-inputs-via-aoc-cli).
 
 ```sh
