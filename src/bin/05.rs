@@ -126,7 +126,6 @@ mod tests {
     fn chars() {
         let str = "   hello";
         let chars = str.chars();
-        dbg!(&chars);
         assert_eq!(8, chars.count());
     }
 
