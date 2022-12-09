@@ -82,8 +82,8 @@ fn scan_moves(h_pos: (i32, i32), rope: &mut [(i32, i32); 9]) {
 fn seek_pos((xt, yt): &(i32, i32), (xh, yh): &(i32, i32)) -> (i32, i32) {
     // this function is only called when there is an actual movement of the tail
     // to perform, so we can safely seek towards the same y and x as the head.
-    let xdiff = abs_diff(xt, xh);
-    let ydiff = abs_diff(yt, yh);
+    let xdiff = distance(xt, xh);
+    let ydiff = distance(yt, yh);
 
     if ydiff == xdiff {
         let new_xt = advance_towards_diff(*xt, *xh, 1);
@@ -107,7 +107,7 @@ fn advance_towards_diff(t: i32, h: i32, min_dist: i32) -> i32 {
     let mut stopper = 0;
     match h.cmp(&t) {
         Ordering::Greater => {
-            while abs_diff(&h, &new_t) > min_dist {
+            while distance(&h, &new_t) > min_dist {
                 stopper += 1;
                 if stopper > 100 {
                     panic!("infinite loop");
@@ -117,7 +117,7 @@ fn advance_towards_diff(t: i32, h: i32, min_dist: i32) -> i32 {
             new_t
         }
         Ordering::Less => {
-            while abs_diff(&h, &new_t) > min_dist {
+            while distance(&h, &new_t) > min_dist {
                 stopper += 1;
                 if stopper > 100 {
                     panic!("infinite loop");
@@ -134,13 +134,13 @@ fn advance_towards_diff(t: i32, h: i32, min_dist: i32) -> i32 {
 }
 
 fn touching((xa, ya): &(i32, i32), (xb, yb): &(i32, i32)) -> bool {
-    let xdiff = abs_diff(xa, xb);
+    let xdiff = distance(xa, xb);
 
     if xdiff > 1 {
         return false;
     }
 
-    let ydiff = abs_diff(ya, yb);
+    let ydiff = distance(ya, yb);
     if ydiff > 1 {
         return false;
     }
@@ -148,12 +148,8 @@ fn touching((xa, ya): &(i32, i32), (xb, yb): &(i32, i32)) -> bool {
     true
 }
 
-fn abs_diff(xa: &i32, xb: &i32) -> i32 {
-    if (xa > &0 && xb > &0) || (xa < &0 && xb < &0) {
-        (xa.abs() - xb.abs()).abs()
-    } else {
-        xa.abs() + xb.abs()
-    }
+fn distance(xa: &i32, xb: &i32) -> i32 {
+    (xa - xb).abs()
 }
 
 fn apply_move(mv: Mv, (x, y): (i32, i32)) -> (i32, i32) {
